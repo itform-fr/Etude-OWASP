@@ -17,22 +17,30 @@ async function initializeBrowser() {
     return page;
 }
 
+async function hasValidCookies(pageInstance) {
+    cookies = await pageInstance.cookies();
+    console.log('Existing Cookies:', cookies);
+
+    const hasPHPSESSID = cookies.some(cookie => cookie.name === 'PHPSESSID');
+    const hasAuth = cookies.some(cookie => cookie.name === 'auth');
+
+    return hasPHPSESSID && hasAuth;
+}
+
 async function loginAndFetch() {
     const pageInstance = await initializeBrowser();
-    
-    // Check if cookies are available, if not, log in
-    if (!cookies) {
-        console.log('No valid cookies found, logging in...');
+
+    if (!(await hasValidCookies(pageInstance))) {
+        console.log('No valid PHPSESSID or auth cookie found, logging in...');
         await pageInstance.goto('http://php-apache/login.php');
         await pageInstance.type('input[name="login"]', 'admin');
         await pageInstance.type('input[name="password"]', 'ComplexeAdminPass123!');
         await pageInstance.click('input[type="submit"]');
 
         try {
-            // Wait for the page to navigate (redirect to presta.php)
-            await pageInstance.waitForNavigation({ 
-                waitUntil: 'domcontentloaded', 
-                timeout: 60000 // Increased timeout
+            await pageInstance.waitForNavigation({
+                waitUntil: 'domcontentloaded',
+                timeout: 60000
             });
         } catch (error) {
             console.error('Navigation timeout error:', error);
@@ -42,33 +50,26 @@ async function loginAndFetch() {
         cookies = await pageInstance.cookies();
         console.log('Cookies after login:', cookies);
     } else {
-        // If cookies are available, set them to the page
-        console.log('Using existing cookies...');
+        console.log('Using existing valid cookies...');
         await pageInstance.setCookie(...cookies);
     }
 
     // Now navigate to profile.php?id=2
     await pageInstance.goto('http://php-apache/profile.php?id=2');
 
-    // Wait for the "showDescription" button to appear before clicking
     await pageInstance.waitForSelector('input[name="showDescription"]', { timeout: 60000 });
-
-    // Click the "showDescription" button
     await pageInstance.click('input[name="showDescription"]');
 
-    // Wait for the page to update (adjust this based on the actual page flow)
     await pageInstance.waitForSelector('form', { timeout: 60000 });
 
-    // Capture the updated content after the button click
     const content = await pageInstance.content();
     console.log('Updated page content:', content);
 
-    // Check for any <a> tags with href attributes and click them automatically
     const links = await pageInstance.$$eval('a[href]', links =>
-        links.filter(link => link.textContent.trim() !== 'Retour') // Filter out "Retour" links
-             .map(link => link.href) // Extract href of valid links
+        links.filter(link => link.textContent.trim() !== 'Retour')
+             .map(link => link.href)
     );
-    
+
     if (links.length > 0) {
         console.log(`Found ${links.length} valid link(s), clicking them...`);
         for (const link of links) {
@@ -83,13 +84,10 @@ async function loginAndFetch() {
 async function run() {
     await initializeBrowser();
 
-    // Run loginAndFetch every 2 minutes (120,000ms)
     setInterval(async () => {
         console.log('Running loginAndFetch at', new Date().toISOString());
         await loginAndFetch().catch(console.error);
-    }, 120000); // 2 minutes interval
+    }, 120000);
 }
 
-// Start the loop
 run().catch(console.error);
-
