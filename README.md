@@ -11,7 +11,7 @@ Attention à ne pas rendre cette machine accessible sur votre réseau (puisqu'el
 
 Installation sur une machine debian:  
 ```bash
-apt update && apt install docker.io docker-compose git
+apt update && apt install -y docker.io docker-compose git
 git clone https://github.com/itform-fr/OWASP-CT1.git
 docker-compose -f OWASP-CT1/vuln_site.yaml up -d
 ```
