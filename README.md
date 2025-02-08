@@ -8,10 +8,13 @@ pour lancer le site vous pouvez effectuer ces commandes suivantes, le site sera 
 
 Attention à ne pas rendre cette machine accessible sur votre réseau (puisqu'elle pourra être assez facilement compromise)!
 
-Installation sur une machine debian:
+Installation sur une machine debian:<br>
+```bash
 apt install docker.io docker-compose git
 git clone https://github.com/itform-fr/OWASP-CT1.git
 docker-compose -f OWASP-CT1/vuln-site.yaml up -d
+<br>
 
 Pour arrêter la machine:
+```bash
 docker-compose -f OWASP-CT1/vuln-site.yaml down
