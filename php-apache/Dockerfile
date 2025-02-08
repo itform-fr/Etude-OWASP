@@ -14,5 +14,3 @@ RUN echo "<Directory /var/www/html/images>" >> /etc/apache2/apache2.conf \
 COPY web.tar.gz /tmp/web.tar.gz
 RUN tar -xvzf /tmp/web.tar.gz -C /var/www/html
 RUN rm /tmp/web.tar.gz
-COPY ./web /var/www/html
-
