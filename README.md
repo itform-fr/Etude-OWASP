@@ -13,8 +13,9 @@ Installation sur une machine debian:<br>
 apt install docker.io docker-compose git
 git clone https://github.com/itform-fr/OWASP-CT1.git
 docker-compose -f OWASP-CT1/vuln-site.yaml up -d
-<br>
+```
 
 Pour arrêter la machine:
 ```bash
 docker-compose -f OWASP-CT1/vuln-site.yaml down
+```
