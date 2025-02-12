@@ -1,0 +1,7 @@
+services:
+  fuzz:
+    ports:
+      - 80:80
+    hostname: fuzz
+    build: .
+    restart: always
