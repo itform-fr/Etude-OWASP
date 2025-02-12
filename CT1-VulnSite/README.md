@@ -12,11 +12,11 @@ Attention à ne pas rendre cette machine accessible sur votre réseau (puisqu'el
 Installation sur une machine debian:  
 ```bash
 apt update && apt install -y docker.io docker-compose git
-git clone https://github.com/itform-fr/OWASP-CT1.git
-docker-compose -f OWASP-CT1/vuln_site.yaml up -d
+git clone https://github.com/itform-fr/Etude-OWASP.git
+docker-compose -f Etude-OWASP/CT1-VulnSite/vuln_site.yaml up -d
 ```
 
 Pour arrêter la machine:
 ```bash
-docker-compose -f OWASP-CT1/vuln-site.yaml down
+docker-compose -f Etude-OWASP/CT1-VulnSite/vuln_site.yaml down
 ```
