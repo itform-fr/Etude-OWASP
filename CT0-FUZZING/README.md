@@ -5,6 +5,11 @@ Il existe 3 domaines différents, 2 noms d'hôtes différents pour deux d'entre 
 Le Top Level Domain utilisé est : .lab.
 
 ```bash
+apt update && apt install -y docker.io docker-compose git  
 git clone https://github.com/itform-fr/Etude-OWASP.git
 docker-compose -f Etude-OWASP/CT0-FUZZING/fuzz.yaml up -d
+```
+Pour arrêter la machine:
+```bash
+docker-compose -f Etude-OWASP/CT0-FUZZING/fuzz.yaml down
 ```
