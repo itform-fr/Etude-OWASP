@@ -23,7 +23,7 @@ L'OWASP classe les vulnérabilités en catégories spécifiques :
 
 L'organisation à but non lucratif **MITRE** est à l'origine des classifications des différentes faiblesses, dans le but de définir les vulnérabilités connues à surveiller en urgence : les **CVE (Common Vulnerability and Exposure / Common Vulnerability Enumeration)**.
 
->En 1999, MITRE a établi une classification des menaces permettant de se protéger et de configurer les équipements IDS pour prévenir l'exploitation des menaces récentes sur les systèmes d'information.
+En 1999, MITRE a établi une classification des menaces permettant de se protéger et de configurer les équipements IDS pour prévenir l'exploitation des menaces récentes sur les systèmes d'information.
 
 - Les CVE possèdent un identifiant unique permettant de retrouver une vulnérabilité et un contexte précis d’exploitation (version du programme touché, système d’exploitation touché, CWE liées à ce type de vulnérabilité, risques encourus)
 - Les CWE classent de manière générique les types de vulnérabilité et leurs impacts sur les systèmes touchés.
