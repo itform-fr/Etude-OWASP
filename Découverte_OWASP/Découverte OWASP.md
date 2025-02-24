@@ -72,7 +72,7 @@ Pour les premières leçons de l’application WebGoat, vous aurez besoin d’ut
         
    En répétant l’opération à de multiple reprises je remarque que certains numéros sont sautés pour le premier nombre. Un cookie a donc été donné à un autre utilisateur, je peux donc utiliser cette valeur comme base pour trouver le cookie de l’utilisateur. En effectuant une recherche sur internet sur la deuxième valeur je constate qu’il s’agit d’un timestamp depuis l’époque unix (1 janvier 1970). Je peux donc tenter la première valeur trouvée en réduisant le timestamp d’une unité depuis que le cookie à été trouvé. En procédant ainsi je suis sûr de pouvoir trouver le cookie d’un utilisateur. Je pourrais donc utiliser le script suivant pour trouver le cookie à coup sûr :
         
-        ```bash
+   ```bash
         #!/bin/bash
         if [[ -z $1 ]] || [[ -z $2 ]] || [[ -z $3 ]] || [[ -z $4 ]] || [[ -z $5 ]] || [[ -z $6 ]] ; then { 
           echo "donner la valeur du jeton JSESSIONID, votre nom d'utilisateur et votre mot de passe"
@@ -157,7 +157,7 @@ Pour les premières leçons de l’application WebGoat, vous aurez besoin d’ut
         	a=1
         }
         done
-        ```
+   ```
         
         Le script se connecte au serveur avec les identifiants entrés à l’exécution puis récupère un hijack_cookie auprès du serveur, il incrémente ensuite le permier nombre pour prédire la valeur du prochain cookie. Si le prochain cookie possède la valeur prévue il recommence l’opération jusqu’à ce que le cookie obtenu ne soit pas celui qui était prévu. A partir du moment ou ce cookie est identifié on décrémente la valeur du deuxième nombre (le timestamp) d’une unité pour trouver le cookie attendu.
         
