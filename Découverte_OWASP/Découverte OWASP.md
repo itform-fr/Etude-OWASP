@@ -185,19 +185,20 @@ Pour les premières leçons de l’application WebGoat, vous aurez besoin d’ut
    Dans zap je peux observer la réponse reçue :
         
    ![images/image3.png](images/image3.png)
-    </details>    
-    - Insecure Direct Object References - 5 part 1
+    </details> 
+    <details>
+    <summary> Insecure Direct Object References - 5 part 1 </summary>
         
-        je récupère la requête avec zap et la répète pour en modifier le contenu :
+   je récupère la requête avec zap et la répète pour en modifier le contenu :
         
-        ![images/image4.png](images/image4.png)
+   ![images/image4.png](images/image4.png)
         
-        Je choisirais Open/Resend with Request Editor pour modifier la requête :
+   Je choisirais Open/Resend with Request Editor pour modifier la requête :
         
-        ![images/image5.png](images/image5.png)
+   ![images/image5.png](images/image5.png)
         
-        Puis en testant plusieurs identifiant utilisateurs en décrémentant et incrémentant l’identifiant de tom je trouve celui de l’utilisateur Buffalo Bill.
-        
+   Puis en testant plusieurs identifiant utilisateurs en décrémentant et incrémentant l’identifiant de tom je trouve celui de l’utilisateur Buffalo Bill.
+     </details>     
     - Insecure Direct Object References - 5 part 2
         
         Pour la dernière partie l’objectif étant de modifier la requête http nous devons trouver un moyen d’envoyer des modifications, je modifie donc la méthode de la requête http :
