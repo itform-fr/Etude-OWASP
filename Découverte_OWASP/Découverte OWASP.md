@@ -182,9 +182,9 @@ Pour les premières leçons de l’application WebGoat, vous aurez besoin d’ut
     <details> 
     <summary> Insecure Direct Object References - 3 </summary>
         
-        Dans zap je peux observer la réponse reçue :
+   Dans zap je peux observer la réponse reçue :
         
-        ![images/image3.png](images/image3.png)
+   ![images/image3.png](images/image3.png)
     </details>    
     - Insecure Direct Object References - 5 part 1
         
