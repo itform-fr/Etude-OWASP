@@ -3,11 +3,11 @@
 
 # **Découverte des vulnérabilités référencées par l’OWASP**
 
-    Dans ce document nous découvrirons un ensemble de vulnérabilités classées par l’OWASP et leur détection dans le cadre d’un « pen-testing ».
+Dans ce document nous découvrirons un ensemble de vulnérabilités classées par l’OWASP et leur détection dans le cadre d’un « pen-testing ».
 
-    L'OWASP (Open Worldwide Application Security Project) est une association mettant en avant les différentes failles connues sur les applications (principalement web) et les moyens de s'en protéger. L'organisme effectue un classement régulier des vulnérabilités les plus exploitées sur Internet pour former les testeurs de sécurité à leur détection et les développeurs à leur compréhension et à la correction du code.
+L'OWASP (Open Worldwide Application Security Project) est une association mettant en avant les différentes failles connues sur les applications (principalement web) et les moyens de s'en protéger. L'organisme effectue un classement régulier des vulnérabilités les plus exploitées sur Internet pour former les testeurs de sécurité à leur détection et les développeurs à leur compréhension et à la correction du code.
 
-    L'OWASP propose divers projets, et nous nous intéresserons ici au sujet principal : le classement des **10 vulnérabilités les plus exploitées sur Internet**. Pour effectuer cette étude, nous nous baserons sur le site officiel de l'OWASP et sur une application répertoriant des exemples des différents types de vulnérabilités étudiées. L’application WebGoat est ainsi développée par l’OWASP pour comprendre les différents types de vulnérabilités et leurs impacts.
+L'OWASP propose divers projets, et nous nous intéresserons ici au sujet principal : le classement des **10 vulnérabilités les plus exploitées sur Internet**. Pour effectuer cette étude, nous nous baserons sur le site officiel de l'OWASP et sur une application répertoriant des exemples des différents types de vulnérabilités étudiées. L’application WebGoat est ainsi développée par l’OWASP pour comprendre les différents types de vulnérabilités et leurs impacts.
 
 Nous travaillerons ainsi sur les **5 premières vulnérabilités** du top 10 de l'OWASP (version 2021, car ce classement est actualisé tous les 4 ans).
 
