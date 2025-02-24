@@ -46,13 +46,14 @@ docker create -ti —name webgoat -p 8080:8080 -p 9090:9090 -e TZ=Europe/Paris w
 Pour les premières leçons de l’application WebGoat, vous aurez besoin d’utiliser les outils de développeur de votre navigateur, en appuyant sur la touche f12 de votre clavier une partie outils développeurs apparaît sur la page.
 
 ![images/image1.png](images/image1.png)
-<details>
-<summary>1. (A1) Broken Access Control</summary>
+
+1. (A1) Broken Access Control
     *Hijack a session*
     
      Le session Hijacking est le fait de voler la session d’un autre utilisateur, il repose la plupart du temps sur l’utilisation d’un moyen d’authentification autre que le nom et le mot de passe de l’utilisateur (comme un cookie d’authentification).
-    
-    - Hijack a session - 5
+
+<details>
+<summary> - Hijack a session - 5 </summary>
         
         Dans la partie storage vous trouverez les cookies liés à la page sur laquelle vous vous connectez. Pour la première leçon (Hijack a session) il s’agit de deviner le cookie d’un utilisateur.
         
@@ -166,7 +167,7 @@ Pour les premières leçons de l’application WebGoat, vous aurez besoin d’ut
         Le script se connecte au serveur avec les identifiants entrés à l’exécution puis récupère un hijack_cookie auprès du serveur, il incrémente ensuite le permier nombre pour prédire la valeur du prochain cookie. Si le prochain cookie possède la valeur prévue il recommence l’opération jusqu’à ce que le cookie obtenu ne soit pas celui qui était prévu. A partir du moment ou ce cookie est identifié on décrémente la valeur du deuxième nombre (le timestamp) d’une unité pour trouver le cookie attendu.
         
         L’opération est répétée une trentaine de fois ce qui était suffisant lors de mes tests.
- </details>       
+</details>       
 
     
     *Insecure Direct Object Reference*
