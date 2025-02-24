@@ -24,11 +24,9 @@ L'OWASP classe les vulnérabilités en catégories spécifiques :
 
 L'organisation à but non lucratif **MITRE** est à l'origine des classifications des différentes faiblesses, dans le but de définir les vulnérabilités connues à surveiller en urgence : les **CVE (Common Vulnerability and Exposure / Common Vulnerability Enumeration)**.
 
-<aside>
 
-En 1999, MITRE a établi une classification des menaces permettant de se protéger et de configurer les équipements IDS pour prévenir l'exploitation des menaces récentes sur les systèmes d'information.
 
-</aside>
+>En 1999, MITRE a établi une classification des menaces permettant de se protéger et de configurer les équipements IDS pour prévenir l'exploitation des menaces récentes sur les systèmes d'information.
 
 - Les CVE possèdent un identifiant unique permettant de retrouver une vulnérabilité et un contexte précis d’exploitation (version du programme touché, système d’exploitation touché, CWE liées à ce type de vulnérabilité, risques encourus)
 - Les CWE classent de manière générique les types de vulnérabilité et leurs impacts sur les systèmes touchés.
@@ -66,11 +64,9 @@ Pour les premières leçons de l’application WebGoat, vous aurez besoin d’ut
    Dans la partie storage vous trouverez les cookies liés à la page sur laquelle vous vous connectez. Pour la première leçon (Hijack a session) il s’agit de deviner le cookie d’un utilisateur.
         
    Pour réaliser ce challenge je note le cookie récupéré par l’utilisateur julien :
-        
-   <aside>
+   >    
     🍪  Hijack_cookie : 999666930232324123-1739829095375 
-   </aside>
-        
+   >    
         Puis je supprime le cookie et remplie à nouveau le formulaire pour comparer son cookie :
         
         <aside>
