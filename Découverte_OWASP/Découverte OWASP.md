@@ -64,19 +64,13 @@ Pour les premières leçons de l’application WebGoat, vous aurez besoin d’ut
    Dans la partie storage vous trouverez les cookies liés à la page sur laquelle vous vous connectez. Pour la première leçon (Hijack a session) il s’agit de deviner le cookie d’un utilisateur.
         
    Pour réaliser ce challenge je note le cookie récupéré par l’utilisateur julien :
-   >    
-   > 🍪  Hijack_cookie : 999666930232324123-1739829095375 
-   >    
-        Puis je supprime le cookie et remplie à nouveau le formulaire pour comparer son cookie :
+   > 🍪  Hijack_cookie : 999666930232324123-1739829095375
+   
+   Puis je supprime le cookie et remplie à nouveau le formulaire pour comparer son cookie :
         
-        <aside>
-        🍪
+   > 🍪  Hijack_cookie : 999666930232324124-1739829895548
         
-        Hijack_cookie : 999666930232324124-1739829895548
-        
-        </aside>
-        
-        En répétant l’opération à de multiple reprises je remarque que certains numéros sont sautés pour le premier nombre. Un cookie a donc été donné à un autre utilisateur, je peux donc utiliser cette valeur comme base pour trouver le cookie de l’utilisateur. En effectuant une recherche sur internet sur la deuxième valeur je constate qu’il s’agit d’un timestamp depuis l’époque unix (1 janvier 1970). Je peux donc tenter la première valeur trouvée en réduisant le timestamp d’une unité depuis que le cookie à été trouvé. En procédant ainsi je suis sûr de pouvoir trouver le cookie d’un utilisateur. Je pourrais donc utiliser le script suivant pour trouver le cookie à coup sûr :
+   En répétant l’opération à de multiple reprises je remarque que certains numéros sont sautés pour le premier nombre. Un cookie a donc été donné à un autre utilisateur, je peux donc utiliser cette valeur comme base pour trouver le cookie de l’utilisateur. En effectuant une recherche sur internet sur la deuxième valeur je constate qu’il s’agit d’un timestamp depuis l’époque unix (1 janvier 1970). Je peux donc tenter la première valeur trouvée en réduisant le timestamp d’une unité depuis que le cookie à été trouvé. En procédant ainsi je suis sûr de pouvoir trouver le cookie d’un utilisateur. Je pourrais donc utiliser le script suivant pour trouver le cookie à coup sûr :
         
         ```bash
         #!/bin/bash
