@@ -177,7 +177,7 @@ Pour les premières leçons de l’application WebGoat, vous aurez besoin d’ut
         L’opération est répétée une trentaine de fois ce qui était suffisant lors de mes tests.
         
     </aside>
-</details>    
+    </details>    
     <aside>
     
     *Insecure Direct Object Reference*
