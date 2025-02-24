@@ -159,9 +159,9 @@ Pour les premières leçons de l’application WebGoat, vous aurez besoin d’ut
         done
    ```
         
-        Le script se connecte au serveur avec les identifiants entrés à l’exécution puis récupère un hijack_cookie auprès du serveur, il incrémente ensuite le permier nombre pour prédire la valeur du prochain cookie. Si le prochain cookie possède la valeur prévue il recommence l’opération jusqu’à ce que le cookie obtenu ne soit pas celui qui était prévu. A partir du moment ou ce cookie est identifié on décrémente la valeur du deuxième nombre (le timestamp) d’une unité pour trouver le cookie attendu.
+   Le script se connecte au serveur avec les identifiants entrés à l’exécution puis récupère un hijack_cookie auprès du serveur, il incrémente ensuite le permier nombre pour prédire la valeur du prochain cookie. Si le prochain cookie possède la valeur prévue il recommence l’opération jusqu’à ce que le cookie obtenu ne soit pas celui qui était prévu. A partir du moment ou ce cookie est identifié on décrémente la valeur du deuxième nombre (le timestamp) d’une unité pour trouver le cookie attendu.
         
-        L’opération est répétée une trentaine de fois ce qui était suffisant lors de mes tests.
+   L’opération est répétée une trentaine de fois ce qui était suffisant lors de mes tests.
         
     </aside>
     </details>    
@@ -178,13 +178,14 @@ Pour les premières leçons de l’application WebGoat, vous aurez besoin d’ut
     > Une fois lancé j’utiliserai le navigateur intégré à Zaproxy pour me connecter à webgoat.
     > 
     > ![images/image2.png](images/image2.png)
-    > 
-    - Insecure Direct Object References - 3
+    >
+    <details> 
+    <summary> Insecure Direct Object References - 3 </summary>
         
         Dans zap je peux observer la réponse reçue :
         
         ![images/image3.png](images/image3.png)
-        
+    </details>    
     - Insecure Direct Object References - 5 part 1
         
         je récupère la requête avec zap et la répète pour en modifier le contenu :
