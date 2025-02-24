@@ -53,8 +53,8 @@ Pour les premières leçons de l’application WebGoat, vous aurez besoin d’ut
      Le session Hijacking est le fait de voler la session d’un autre utilisateur, il repose la plupart du temps sur l’utilisation d’un moyen d’authentification autre que le nom et le mot de passe de l’utilisateur (comme un cookie d’authentification).
 
 <details>
-<summary> - Hijack a session - 5 </summary>
-        
+<summary> Hijack a session - 5 </summary>
+    -        
         Dans la partie storage vous trouverez les cookies liés à la page sur laquelle vous vous connectez. Pour la première leçon (Hijack a session) il s’agit de deviner le cookie d’un utilisateur.
         
         Pour réaliser ce challenge je note le cookie récupéré par l’utilisateur julien :
