@@ -198,23 +198,24 @@ Pour les premières leçons de l’application WebGoat, vous aurez besoin d’ut
    ![images/image5.png](images/image5.png)
         
    Puis en testant plusieurs identifiant utilisateurs en décrémentant et incrémentant l’identifiant de tom je trouve celui de l’utilisateur Buffalo Bill.
+     </details>
+    <details>
+    <summary> Insecure Direct Object References - 5 part 2 </summary>
+        
+   Pour la dernière partie l’objectif étant de modifier la requête http nous devons trouver un moyen d’envoyer des modifications, je modifie donc la méthode de la requête http :
+        
+   ![images/image6.png](images/image6.png)
+        
+   Ici la méthode POST n’est pas autorisée mais je découvre 2 méthodes : PUT et GET qui sont autorisées. Je teste donc avec la méthode PUT :
+        
+   ![images/image7.png](images/image7.png)
+        
+   Cette fois le media-type n’est pas autorisé mais le content-type est application/json, je le modifie donc et tente d’envoyer les modifications demandées :
+        
+   ![images/image8.png](images/image8.png)
+        
+   Le profile de l’utilisateur Buffalo Bill est modifié.
      </details>     
-    - Insecure Direct Object References - 5 part 2
-        
-        Pour la dernière partie l’objectif étant de modifier la requête http nous devons trouver un moyen d’envoyer des modifications, je modifie donc la méthode de la requête http :
-        
-        ![images/image6.png](images/image6.png)
-        
-        Ici la méthode POST n’est pas autorisée mais je découvre 2 méthodes : PUT et GET qui sont autorisées. Je teste donc avec la méthode PUT :
-        
-        ![images/image7.png](images/image7.png)
-        
-        Cette fois le media-type n’est pas autorisé mais le content-type est application/json, je le modifie donc et tente d’envoyer les modifications demandées :
-        
-        ![images/image8.png](images/image8.png)
-        
-        Le profile de l’utilisateur Buffalo Bill est modifié.
-        
     </aside>
     
     <aside>
@@ -222,45 +223,48 @@ Pour les premières leçons de l’application WebGoat, vous aurez besoin d’ut
     *Missing Function Level Access Control*
     
     > Il s’agit toutes les fonctions, autres que l’IDOR. Permettant à un utilisateur d’obtenir des accès au données ou aux droits d’autres utilisateurs.
-    > 
-    - Missing Function Level Access Control - 2
+    >
+    <details> 
+    <summary> Missing Function Level Access Control - 2 </summary>
         
-        Nous devons trouver un menu caché, pour cela nous pouvons utiliser les outils développeurs web du navigateur:
+   Nous devons trouver un menu caché, pour cela nous pouvons utiliser les outils développeurs web du navigateur:
         
-        ![images/image9.png](images/image9.png)
+   ![images/image9.png](images/image9.png)
         
-        Nous découvrirons ici 2 catégories cachées dans la page (attention elles sont sensibles à la casse)
+   Nous découvrirons ici 2 catégories cachées dans la page (attention elles sont sensibles à la casse)
+     </details>
+     <details>
+    <summary> Missing Function Level Access Control - 3 </summary>
         
-    - Missing Function Level Access Control - 3
+   En utilisant à nouveau zaproxy je tente de faire un get sur la page users trouvée précédemment 
         
-        En utilisant à nouveau zaproxy je tente de faire un get sur la page users trouvée précédemment 
+   ![images/image10.png](images/image10.png)
         
-        ![images/image10.png](images/image10.png)
+   A nouveau le type d’application ne semble pas correspondre (je modifierais pour application/json :
         
-        A nouveau le type d’application ne semble pas correspondre (je modifierais pour application/json :
+   ![images/image11.png](images/image11.png)
         
-        ![images/image11.png](images/image11.png)
+   La liste des utilisateurs récupérée j’obtiens le hash de l’utilisateur jerry.
+     </details>
+     <details>
+    <summary> Missing Function Level Access Control - 4 </summary>
         
-        La liste des utilisateurs récupérée j’obtiens le hash de l’utilisateur jerry.
+   Dans la dernière partie les développeurs ont corrigé le problème en autorisant seulement les administrateurs à accéder aux informations. J’utiliserais donc une technique semblable à celle utilisée dans la leçon sur l’IDOR pour obtenir les droits administrateurs :
         
-    - Missing Function Level Access Control - 4
+   ![images/image12.png](images/image12.png)
         
-        Dans la dernière partie les développeurs ont corrigé le problème en autorisant seulement les administrateurs à accéder aux informations. J’utiliserais donc une technique semblable à celle utilisée dans la leçon sur l’IDOR pour obtenir les droits administrateurs :
+   La requête semble fonctionner mais le password n’est pas pris en compte :
         
-        ![images/image12.png](images/image12.png)
+   ![images/image13.png](images/image13.png)
         
-        La requête semble fonctionner mais le password n’est pas pris en compte :
+   N’ayant pas d’accès à la page users-admin-fix je passe le compte julien que j’utilise pour effectuer l’élévation de privilèges :
         
-        ![images/image13.png](images/image13.png)
+   ![images/image14.png](images/image14.png)
         
-        N’ayant pas d’accès à la page users-admin-fix je passe le compte julien que j’utilise pour effectuer l’élévation de privilèges :
+   La page users-admin-fix devient accessible :
         
-        ![images/image14.png](images/image14.png)
-        
-        La page users-admin-fix devient accessible :
-        
-        ![images/image15.png](images/image15.png)
-        
+   ![images/image15.png](images/image15.png)
+     </details>     
     </aside>
     
     <aside>
@@ -268,43 +272,44 @@ Pour les premières leçons de l’application WebGoat, vous aurez besoin d’ut
     *Spoofing an Authentication Cookie*
     
     > Dans cette partie il s’agira de deviner la méthode utilisée pour créer des cookies d’authentification et de l’utiliser pour se créer un cookie valable pour se connecter avec les droits d’un autre utilisateur.
-    > 
-    - Spoofing an Authentication Cookie - 2
+    >
+    <details> 
+    <summary> Spoofing an Authentication Cookie - 2 </summary>
         
-        J’observe le cookie spoof_auth obtenu et remarque qu’il semble être en encodage base64, je tente donc de le décoder :
+   J’observe le cookie spoof_auth obtenu et remarque qu’il semble être en encodage base64, je tente donc de le décoder :
         
-        ```bash
+   ```bash
         echo "NDM2YzdhNTU3NzYxNTk0ZjY3NzA3NDYxNmY2NzYyNjU3Nw==" | base64 -d
         436c7a557761594f677074616f67626577
-        ```
+   ```
         
-        Le résultat semble être un code hexadécimal :
+   Le résultat semble être un code hexadécimal :
         
-        ```bash
+   ```bash
         echo 436c7a557761594f677074616f67626577 | xxd -r -p
         ClzUwaYOgptaogbew
-        ```
+   ```
         
-        J’observe la présence du login/motdepasse présent dans la chaîne de caractère produite en inversé :
+   J’observe la présence du login/motdepasse présent dans la chaîne de caractère produite en inversé :
         
-        ```bash
+   ```bash
         echo 436c7a557761594f677074616f67626577 | xxd -r -p | rev
         webgoatpgOYawUzlC
-        ```
+   ```
         
-        Je vérifie avec le login admin et constate le même résultat, il me suffit donc d’inverser le procéder pour créer un cookie pour n’importe quel utilisateur dont je connais le login :
+   Je vérifie avec le login admin et constate le même résultat, il me suffit donc d’inverser le procéder pour créer un cookie pour n’importe quel utilisateur dont je connais le login :
         
-        ```bash
+   ```bash
         echo -n tompgOYawUzlC | rev | xxd -p | base64 NDM2YzdhNTU3NzYxNTk0ZjY3NzA2ZDZmNzQK
-        ```
+   ```
         
-        Suite à différents test je me rend compte qu’un retour à la ligne corromps la chaîne de caractère je supprime donc le retour à la ligne avant d’encoder en base64 :
+   Suite à différents test je me rend compte qu’un retour à la ligne corromps la chaîne de caractère je supprime donc le retour à la ligne avant d’encoder en base64 :
         
-        ```bash
+   ```bash
         echo -n "tompgOYawUzlC" | rev | xxd -p| tr -d '\n'|base64
         NDM2YzdhNTU3NzYxNTk0ZjY3NzA2ZDZmNzQ=
-        ```
-        
+   ```
+     </details>     
     </aside>
     
 2. (A2) Cryptographic Failures
@@ -314,55 +319,58 @@ Pour les premières leçons de l’application WebGoat, vous aurez besoin d’ut
     *Crypto Basics*
     
     > Les méthodes de chiffrement, encodage, et hachage sont couramment utilisées par les application pour authentifier les utilisateurs , transmettre leurs données et les sécuriser. Pourtant les méthodes utilisée peuvent ne pas être adaptées et conduire à une compromission des données. De même les technologies utilisées doivent faire l’objet d’une veille constante et être mises à jour dès que nécessaire.
-    > 
-    - Crypto Basics - 3
+    >
+    <details>
+    <summary> Crypto Basics - 3 </summary>
         
-        J’utiliserai CyberChef sur internet :
+   J’utiliserai CyberChef sur internet :
         
-        ![images/image16.png](images/image16.png)
+   ![images/image16.png](images/image16.png)
         
-        Ici je tente de bruteforcer le ou exclusif pour récupérer le mot de passe après avoir décoder les caractères en base64. En effet l’opération « ou exclusif » s’exécute en binaire et peut convertir certains caractères dans des code binaire non interprétables par un terminal, le résultat de l’opération est donc encodé en base64(attention le mot de passe trouvé n’est pas dans la casse attendue par le formulaire).
+   Ici je tente de bruteforcer le ou exclusif pour récupérer le mot de passe après avoir décoder les caractères en base64. En effet l’opération « ou exclusif » s’exécute en binaire et peut convertir certains caractères dans des code binaire non interprétables par un terminal, le résultat de l’opération est donc encodé en base64(attention le mot de passe trouvé n’est pas dans la casse attendue par le formulaire).
+   <details>
+    <summary> Crypto Basics - 4 </summary>
         
-    - Crypto Basics - 4
+   je choisirais ici le programme hashcat pour pouvoir cracker le hash proposé :
         
-        je choisirais ici le programme hashcat pour pouvoir cracker le hash proposé :
-        
-        ```bash
+   ```bash
         hashid -m '21232F297A57A5A743894A0E4A801FC3'
         hashcat -m 0 '21232F297A57A5A743894A0E4A801FC3' /usr/share/wordlists/rockyou.txt 
-        ```
+   ```
         
-        ```bash
+   ```bash
         hashid -m '8F0E2F76E22B43E2855189877E7DC1E1E7D98C226C95DB247CD1D547928334A9'
         hashcat -m 1400 '8F0E2F76E22B43E2855189877E7DC1E1E7D98C226C95DB247CD1D547928334A9' /usr/share/wordlists/rockyou.txt
         
-        ```
+   ```
+   </details>
+   <details>
+    <summary> Crypto Basics - 6 </summary>
         
-    - Crypto Basics - 6
+   J’ enregistre la clé privée donnée dans fichier nommé private.rsa , puis je génère une clé publique correspondante :
         
-        J’ enregistre la clé privée donnée dans fichier nommé private.rsa , puis je génère une clé publique correspondante :
-        
-        ```bash
+   ```bash
         openssl rsa -in private.rsa -pubout > pub.rsa
-        ```
+   ```
         
-        depuis la clé publique j’extrait le modulus :
+   depuis la clé publique j’extrait le modulus :
         
-        ```bash
+   ```bash
         openssl rsa -in pub.rsa -pubin -modulus -noout | cut -d "=" -f 2 > modulus.txt
-        ```
+   ```
         
-        puis je sign le modulus en sha256 en utilisant la clé privée :
+   puis je sign le modulus en sha256 en utilisant la clé privée :
         
-        ```bash
+   ```bash
         cat modulus.txt | tr -d '\n' | openssl dgst -sha256 -sign private.rsa | base64
-        ```
+   ```
+     </details>
+     <details>
+    <summary> Crypto Basics - 8 </summary>
         
-    - Crypto Basics - 8
+   J’extrais le fichier shadow du conteneur pour obtenir le droit d’accès sur le fichier puis je déchiffre le message grâce à la passphrase :
         
-        J’extrais le fichier shadow du conteneur pour obtenir le droit d’accès sur le fichier puis je déchiffre le message grâce à la passphrase :
-        
-        ```bash
+   ```bash
         docker cp youthful_hodgkin:/etc/shadow .
         pass=$(openssl passwd -6 poseidon) && sed -i "/root/ s/\*/$pass/" shadow
         docker cp shadow youthful_hodgkin:/etc/shadow
@@ -371,7 +379,7 @@ Pour les premières leçons de l’application WebGoat, vous aurez besoin d’ut
         cat default_secret
         echo "U2FsdGVkX199jgh5oANElFdtCxIEvdEvciLi+v+5loE+VCuy6Ii0b+5byb5DXp32RPmT02Ek1p f55ctQN+DHbwCPiVRfFQamDmbHBUpD7as=" | openssl enc -aes-256-cbc -d -a -k ThisIsMySecretPassw0rdF0rY0u
         
-        ```
+   ```
         
     </aside>
     
@@ -382,137 +390,142 @@ Pour les premières leçons de l’application WebGoat, vous aurez besoin d’ut
     *SQL Injection (intro)*
     
     > L’injection SQL est un type de vulnérabilité permettant à un attaquant de sortir du cadre prévu par l’application pour interroger sa base de données. Il devient possible (la plupart du temps par le biais de formulaires html dont les entrées ne sont pas assez restrictives) d’accéder à d’autres informations stockées dans la base de donnée, voir de les modifier.
-    > 
-    - SQL Injection (intro) - 10
+    >
+    <details> 
+    <summary> SQL Injection (intro) - 10 </summary>
         
-        Après différents essais le champs login_count ne semble pas vulnérable aux injections SQL, mais User_Id peut être injecté :
+   Après différents essais le champs login_count ne semble pas vulnérable aux injections SQL, mais User_Id peut être injecté :
         
-        ![images/image17.png](images/image17.png)
+   ![images/image17.png](images/image17.png)
+     </details>
+     <details>
+    <summary> SQL Injection (intro) - 11 </summary>
         
-    - SQL Injection (intro) - 11
+   Le même principe est utilisable dans cette leçon en utilisant les commentaires sql :
         
-        Le même principe est utilisable dans cette leçon en utilisant les commentaires sql :
+   ![images/image18.png](images/image18.png)
+     </details>
+     <details>
+    <summary> SQL Injection (intro) - 12 </summary>
         
-        ![images/image18.png](images/image18.png)
+   Nous utiliserons le même concept mais en ajoutant cette fois une commande de mise à jour de la table :
         
-    - SQL Injection (intro) - 12
-        
-        Nous utiliserons le même concept mais en ajoutant cette fois une commande de mise à jour de la table :
-        
-        ```sql
+   ```sql
         'update employees set salary=91000 where userid=37648; --
-        ```
+   ```
+     </details>
+     <details>
+    <summary> SQL Injection (intro) - 13 </summary>
         
-    - SQL Injection (intro) - 13
+   Nous utiliserons le même principe d’enchaînement des requêtes pour supprimer la table des logs :
         
-        Nous utiliserons le même principe d’enchaînement des requêtes pour supprimer la table des logs :
-        
-        ![images/image19.png](images/image19.png)
-        
+   ![images/image19.png](images/image19.png)
+     </details>    
     </aside>
     
     <aside>
     
     *SQL Injection (advanced)*
-    
-    - SQL Injection (advanced) - 3
+    <details>
+    <summary> SQL Injection (advanced) - 3 </summary>
         
-        ```sql
+   ```sql
         ';select * from user_system_data; --
-        ```
+   ```
         
-        En essayant de réaliser l’injection suivante :
+   En essayant de réaliser l’injection suivante :
         
-        ```sql
+   ```sql
         ' union select password from user_system_data –
-        ```
+   ```
         
-        Je remarque que le nombre de colonnes ne correspond pas :
+   Je remarque que le nombre de colonnes ne correspond pas :
         
-        ![images/image20.png](images/image20.png)
+   ![images/image20.png](images/image20.png)
         
-        Il faudra donc faire correspondre le nombre de colonne de la deuxième requête avec la première (une * donc toutes les colonnes de la première table) :
+   Il faudra donc faire correspondre le nombre de colonne de la deuxième requête avec la première (une * donc toutes les colonnes de la première table) :
         
-        ```sql
+   ```sql
         ' union select null,password,user_name,null,null,null,null from user_system_data –
-        ```
+   ```
         
-        ![images/image21.png](images/image21.png)
+   ![images/image21.png](images/image21.png)
+     </details>
+     <details>
+    <summary> SQL Injection (advanced) - 5 </summary>
         
-    - SQL Injection (advanced) - 5
+   J’utiliserais l’outil sqlmap pour tester les différents types d’injection sql disponibles, après avoir testé les pages challenge_login et challenge deux injection sont possibles sur le paramètre username_reg :
         
-        J’utiliserais l’outil sqlmap pour tester les différents types d’injection sql disponibles, après avoir testé les pages challenge_login et challenge deux injection sont possibles sur le paramètre username_reg :
-        
-        ```bash
+   ```bash
         sqlmap -u http://127.0.0.1:8080/WebGoat/SqlInjectionAdvanced/challenge --data="username_reg=test&email_reg=bob%40mail.com&password_reg=po&confirm_p assword_reg=test" --cookie="JSESSIONID=0txqnMhhofk6DP1OdGeKIItd8yPCW95jNQUolcwn" --method PUT --level 5 --risk 3 -p username_reg
-        ```
+   ```
         
-        ![images/image22.png](images/image22.png)
+   ![images/image22.png](images/image22.png)
         
-        En utilisant la technique boolean-based blind j’arrive à déterminer si une requête sql obtient une réponse positive ou non :
+   En utilisant la technique boolean-based blind j’arrive à déterminer si une requête sql obtient une réponse positive ou non :
         
-        ![images/image23.png](images/image23.png)
+   ![images/image23.png](images/image23.png)
         
-        Ici le résultat de la requête n’est pas considérée comme vraie , il n’y a donc pas de conflit avec un utilisateur existant, le système considère qu’il peut créer le compte.
+   Ici le résultat de la requête n’est pas considérée comme vraie , il n’y a donc pas de conflit avec un utilisateur existant, le système considère qu’il peut créer le compte.
         
-        En effectuant un test avec les différentes lettres je trouve celle-ci :
+   En effectuant un test avec les différentes lettres je trouve celle-ci :
         
-        ![images/image24.png](images/image24.png)
+   ![images/image24.png](images/image24.png)
         
-        Cette fois le retour de la requête est positif, la première lettre du mot de passe est un t. Il suffit dont de tester les différentes lettres pour trouver le mot de passe complet.
+   Cette fois le retour de la requête est positif, la première lettre du mot de passe est un t. Il suffit dont de tester les différentes lettres pour trouver le mot de passe complet.
         
-        Pour cela j’utiliserais le programme burpsuite en forçant les caractères à utiliser dans ce paramètre. La fonctionnalité intruder de burp permettra d’effectuer cette manipulation.
+   Pour cela j’utiliserais le programme burpsuite en forçant les caractères à utiliser dans ce paramètre. La fonctionnalité intruder de burp permettra d’effectuer cette manipulation.
         
-        Burp joue le rôle de proxy tout comme zap et je l’utiliserais dans un premier temps pour capturer le trafique envoyé par mon navigateur (attention de bien gérer les paramètres de proxy du navigateur, les ports à utiliser puisque WebGoat utilise le port 8080 qui est aussi celui par défaut de burp, de plus il faut penser que le navigateur n’utilise pas de proxy pour se connecter à une adresse en 127.0.0.1, il faudra donc utiliser l’adresse IP de la machine hôte pour pouvoir se connecter à l’interface de webgoat).
+   Burp joue le rôle de proxy tout comme zap et je l’utiliserais dans un premier temps pour capturer le trafique envoyé par mon navigateur (attention de bien gérer les paramètres de proxy du navigateur, les ports à utiliser puisque WebGoat utilise le port 8080 qui est aussi celui par défaut de burp, de plus il faut penser que le navigateur n’utilise pas de proxy pour se connecter à une adresse en 127.0.0.1, il faudra donc utiliser l’adresse IP de la machine hôte pour pouvoir se connecter à l’interface de webgoat).
         
-        ![images/image25.png](images/image25.png)
+   ![images/image25.png](images/image25.png)
         
-        Je choisi ensuite d’envoyer cette requête vers l’intruder :
+   Je choisi ensuite d’envoyer cette requête vers l’intruder :
         
-        ![images/image26.png](images/image26.png)
+   ![images/image26.png](images/image26.png)
         
-        Puis je modifie la requête pour envoyer différents paramètres à la chaîne :
+   Puis je modifie la requête pour envoyer différents paramètres à la chaîne :
         
-        ![images/image27.png](images/image27.png)
+   ![images/image27.png](images/image27.png)
         
-        Le paramètre username_reg test ici si la longueur du mot de passe est égale à num (ce qui ne peut pas être vrai puisqu’on fait ici une comparaison entre un entier et une chaîne de caractères. Attention pour que la requête puisse être envoyée il faudra convertir la valeur du paramètre en encodage url :
+   Le paramètre username_reg test ici si la longueur du mot de passe est égale à num (ce qui ne peut pas être vrai puisqu’on fait ici une comparaison entre un entier et une chaîne de caractères. Attention pour que la requête puisse être envoyée il faudra convertir la valeur du paramètre en encodage url :
         
-        ![images/image28.png](images/image28.png)
+   ![images/image28.png](images/image28.png)
         
-        Et il ne reste plus qu’a sélectionner le paramètre à tester en choisissant « add payload position »:
+   Et il ne reste plus qu’a sélectionner le paramètre à tester en choisissant « add payload position »:
         
-        ![images/image29.png](images/image29.png)
+   ![images/image29.png](images/image29.png)
         
-        Un panneau de paramétrage de la payload apparaît, je choisis des nombres à incrémenter de 1 entre 1 et 50 pour déterminer la longueur du mot de passe de tom :
+   Un panneau de paramétrage de la payload apparaît, je choisis des nombres à incrémenter de 1 entre 1 et 50 pour déterminer la longueur du mot de passe de tom :
         
-        ![images/image30.png](images/image30.png)
+   ![images/image30.png](images/image30.png)
         
-        Dans la partie settings j’ajoute un Grep – Match avec une expression présente dans la réponse à ma requête si le résultat est vrai (User {0} already exists …), je choisi ici le mot exists :
+   Dans la partie settings j’ajoute un Grep – Match avec une expression présente dans la réponse à ma requête si le résultat est vrai (User {0} already exists …), je choisi ici le mot exists :
         
-        ![images/image31.png](images/image31.png)
+   ![images/image31.png](images/image31.png)
         
-        Il ne me reste plus qu’à lancer l’attaque et à observer la colonne exists :
+   Il ne me reste plus qu’à lancer l’attaque et à observer la colonne exists :
         
-        ![images/image32.png](images/image32.png)
+   ![images/image32.png](images/image32.png)
         
-        Le mot de passe à donc 23 caractères.
+   Le mot de passe à donc 23 caractères.
         
-        Il est possible cumuler deux payload avec burp intruder pour tester les différentes combinaisons de caractères pour la première lettre du mot de passe, puis toutes les combinaisons de caractères pour la deuxième lettre et ainsi de suite pour les 23 caractères du mot de passe. Pour cela je choisi un type d’attaque Cluster bomb attack, puis je désigne la partie position de substring comme étant un nombre incrémenté de 1 entre 1 et 23 :
+   Il est possible cumuler deux payload avec burp intruder pour tester les différentes combinaisons de caractères pour la première lettre du mot de passe, puis toutes les combinaisons de caractères pour la deuxième lettre et ainsi de suite pour les 23 caractères du mot de passe. Pour cela je choisi un type d’attaque Cluster bomb attack, puis je désigne la partie position de substring comme étant un nombre incrémenté de 1 entre 1 et 23 :
         
-        ![images/image33.png](images/image33.png)
+   ![images/image33.png](images/image33.png)
         
-        Je paramètre ensuite la deuxième payload comme étant un caractère entre a et z (ma requête analyse seulement les caractères en minuscule pour gagner du temps, il sera ensuite possible de tester la casse une fois le mot de passe connu) :
+   Je paramètre ensuite la deuxième payload comme étant un caractère entre a et z (ma requête analyse seulement les caractères en minuscule pour gagner du temps, il sera ensuite possible de tester la casse une fois le mot de passe connu) :
         
-        ![images/image34.png](images/image34.png)
+   ![images/image34.png](images/image34.png)
         
-        Il n’y a plus qu’a lancer l’attaque et voir si nous récupérons une partie des 23 caractères (si certains caractères manquent nous pourrons tester les caractères spéciaux et nombres) :
+   Il n’y a plus qu’a lancer l’attaque et voir si nous récupérons une partie des 23 caractères (si certains caractères manquent nous pourrons tester les caractères spéciaux et nombres) :
         
-        ![images/image35.png](images/image35.png)
+   ![images/image35.png](images/image35.png)
         
-        Quand l’attaque est finie nous optenons le mot de passe :
+   Quand l’attaque est finie nous optenons le mot de passe :
         
-        thisisasecretfortomonly
-        
+   thisisasecretfortomonly
+     </details>
     </aside>
     
     <aside>
@@ -521,46 +534,49 @@ Pour les premières leçons de l’application WebGoat, vous aurez besoin d’ut
     
     > Le XSS (Cross Site Scripting), consiste à injecter (la plupart du temps dans un formulaire, mais l’injection pourrais aussi se faire dans les entêtes html, les cookies etc.) un script javascript exécuté sur la machine d’un client. Il est ainsi possible d’exécuter du code sur la machine d’un autre utilisateur se connectant au site vulnérable. La plupart du temps le code exécuté sur la machine de la victime visera à lui voler des informations d’authentification stockées dans les cookies par exemple.
     On distinguera ici les XSS nécessitant de tromper l’utilisateur en lui envoyant un lien générant du code malveillant et une Stored XSS étant stockée dans la base de donnée du server, ou ses fichiers.
-    > 
-    - Cross Site Scripting - 7
+    >
+    <details>
+    <summary> Cross Site Scripting - 7 </summary>
         
-        Nous pouvons tester d’envoyer le code :
+   Nous pouvons tester d’envoyer le code :
         
-        ```jsx
+   ```jsx
         <script> alert("hello")</script>
-        ```
+   ```
         
-        Dans les différentes parties du formulaire. Si une fenêtre apparaît en indiquant le message hello, vous avez trouvé le champ vulnérable.
+   Dans les différentes parties du formulaire. Si une fenêtre apparaît en indiquant le message hello, vous avez trouvé le champ vulnérable.
+     </details>
+     <details>
+    <summary> Cross Site Scripting - 10 </summary>
         
-    - Cross Site Scripting - 10
+   en analysant le code GoatRouter.js dans la partie debugger de la console developer du navigateur on trouve une route test
+     </details>
+     <details>
+    <summary> Cross Site Scripting - 11 </summary>
         
-        en analysant le code GoatRouter.js dans la partie debugger de la console developer du navigateur on trouve une route test
+   en allant dans un nouvel onglet et en appelant :
+   [http://192.168.189.50:8080/WebGoat/start.mvc?username=julien#test](http://192.168.189.50:8080/WebGoat/start.mvc?username=julien#test/)/%3Cscript%3Ewebgoat.customjs.phoneHome%28%29%3C%2Fscript%3E
         
-    - Cross Site Scripting - 11
+   Un message contenant un numéro s’affiche dans la console du navigateur
         
-        en allant dans un nouvel onglet et en appelant :
-        [http://192.168.189.50:8080/WebGoat/start.mvc?username=julien#test](http://192.168.189.50:8080/WebGoat/start.mvc?username=julien#test/)/%3Cscript%3Ewebgoat.customjs.phoneHome%28%29%3C%2Fscript%3E
+   Le message envoyé à la route test est :
         
-        Un message contenant un numéro s’affiche dans la console du navigateur
-        
-        Le message envoyé à la route test est :
-        
-        ```jsx
+   ```jsx
         <script>webgoat.customjs.phoneHome()</script>
-        ```
+   ```
         
-        Mais les caractères spéciaux sont encodés pour être correctement interprétés par le navigateur.
-        
+   Mais les caractères spéciaux sont encodés pour être correctement interprétés par le navigateur.
+     </details>     
     </aside>
     
     <aside>
     
     *Cross Site Scripting (stored)*
-    
-    - Cross Site Scripting (stored) - 3
+    <details>
+    <summary> Cross Site Scripting (stored) - 3 </summary>
         
-        Nous pourrons directement inclure notre payload sans avoir besoin de l’encoder, cette fois la payload est sauvegardée dans les données du site (certainement dans une base de donnée) et dès qu’un utilisateur accède à la page le script est exécuté.
-        
+   Nous pourrons directement inclure notre payload sans avoir besoin de l’encoder, cette fois la payload est sauvegardée dans les données du site (certainement dans une base de donnée) et dès qu’un utilisateur accède à la page le script est exécuté.
+   </details>     
     </aside>
     
     <aside>
@@ -568,47 +584,51 @@ Pour les premières leçons de l’application WebGoat, vous aurez besoin d’ut
     *Path traversal*
     
     > La Path traversal est un type de vulnérabilité permettant à l'attaquant de changer l’endroit ou les données d’un serveur web sont lues ou écrites. Il devient ainsi possible pour l’attaquant de lire des fichiers qui n’appartiennent pas au champs de l’application concernée, voir de modifier des fichiers systèmes.
-    > 
-    - Path traversal - 2
+    >
+    <details>
+    <summary> Path traversal - 2 </summary>
         
-        Nous devons envoyer une image sur le serveur lorsque le formulaire est utilisé normalement nous avons :
+   Nous devons envoyer une image sur le serveur lorsque le formulaire est utilisé normalement nous avons :
         
-        ![images/image36.png](images/image36.png)
+   ![images/image36.png](images/image36.png)
         
-        On peut remarque que le nom choisi apparaît dans le chemin de stockage de l’image, nous pouvons influer sur le chemin en changeant le nom pour ../hello
+   On peut remarque que le nom choisi apparaît dans le chemin de stockage de l’image, nous pouvons influer sur le chemin en changeant le nom pour ../hello
+     </details>
+     <details>
+    <summary> Path traversal - 4 </summary>
         
-    - Path traversal - 4
+   Le problème à ici été corrigé.
+   Le nom n’apparaît plus dans le chemin de stockage de l’image, mais le nom de l’image lui-même est utilisé tel quel. Nous pouvons donc modifier le nom de l’image pour choisir sa destination. J’utiliserais ici la fonction répéteur de burp pour modifier le nom de l’image :
         
-        Le problème à ici été corrigé.
-        Le nom n’apparaît plus dans le chemin de stockage de l’image, mais le nom de l’image lui-même est utilisé tel quel. Nous pouvons donc modifier le nom de l’image pour choisir sa destination. J’utiliserais ici la fonction répéteur de burp pour modifier le nom de l’image :
+   ![images/image37.png](images/image37.png)
+     </details>
+     <details>
+    <summary> Path traversal - 5 </summary>
         
-        ![images/image37.png](images/image37.png)
+   En analysant les requêtes avec burp on trouve l’url :
         
-    - Path traversal - 5
+   le paramètre id=10 permet d’exploiter un path traversal à l’aide d’encodage url : 
         
-        En analysant les requêtes avec burp on trouve l’url :
-        
-        le paramètre id=10 permet d’exploiter un path traversal à l’aide d’encodage url : 
-        
-        ```bash
+   ```bash
         /WebGoat/PathTraversal/random-picture?id=%2e%2e%2f%2e%2e%2fpath-traversal-secret
-        ```
+   ```
         
-        Le .jpg est ajouté automatiquement à chaque requête
+   Le .jpg est ajouté automatiquement à chaque requête
+     </details>
+     <details>
+    <summary> Path traversal - 7 </summary>
         
-    - Path traversal - 7
+   Pour cette dernière partie le chemin de l’image qui est contenu dans le fichier zip doit contenir le path traversal. Ici il faudra recréer le chemin que nous voulons écraser : mkdir -p challenge7/home/webgoat/.webgoat-2023.8/PathTraversal/julien/ copier une image dans le dernier répertoire
         
-        Pour cette dernière partie le chemin de l’image qui est contenu dans le fichier zip doit contenir le path traversal. Ici il faudra recréer le chemin que nous voulons écraser : mkdir -p challenge7/home/webgoat/.webgoat-2023.8/PathTraversal/julien/ copier une image dans le dernier répertoire
-        
-        ```bash
+   ```bash
         ls challenge7/home/webgoat/.webgoat-2023.8/PathTraversal/julien/
         image.jpg
         puis rentrer dans deux niveaux de répertoires :
         cd challenge7/home
         enfin compresser l’image avec un chemin relatif :
         zip file.zip ../../home/webgoat/.webgoat-2023.8/PathTraversal/julien/image.jpg
-        ```
+   ```
         
-        En envoyant le fichier zip l’image extraite le sera à l’endroit choisi !
-        
+   En envoyant le fichier zip l’image extraite le sera à l’endroit choisi !
+   </details>     
     </aside> 
