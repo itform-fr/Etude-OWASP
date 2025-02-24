@@ -49,7 +49,7 @@ Pour les premières leçons de l’application WebGoat, vous aurez besoin d’ut
 
 1. (A1) Broken Access Control
         
- >   *Hijack a session*
+    *Hijack a session*
     
      Le session Hijacking est le fait de voler la session d’un autre utilisateur, il repose la plupart du temps sur l’utilisation d’un moyen d’authentification autre que le nom et le mot de passe de l’utilisateur (comme un cookie d’authentification).
     
