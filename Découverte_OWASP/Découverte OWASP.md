@@ -63,16 +63,16 @@ Pour les premières leçons de l’application WebGoat, vous aurez besoin d’ut
     <details>
     <summary>- Hijack a session - 5</summary>
         
-        Dans la partie storage vous trouverez les cookies liés à la page sur laquelle vous vous connectez. Pour la première leçon (Hijack a session) il s’agit de deviner le cookie d’un utilisateur.
+   Dans la partie storage vous trouverez les cookies liés à la page sur laquelle vous vous connectez. Pour la première leçon (Hijack a session) il s’agit de deviner le cookie d’un utilisateur.
         
-        Pour réaliser ce challenge je note le cookie récupéré par l’utilisateur julien :
+   Pour réaliser ce challenge je note le cookie récupéré par l’utilisateur julien :
         
-        <aside>
-        🍪
+   <aside>
+    🍪
         
-        Hijack_cookie : 999666930232324123-1739829095375
+   Hijack_cookie : 999666930232324123-1739829095375
         
-        </aside>
+   </aside>
         
         Puis je supprime le cookie et remplie à nouveau le formulaire pour comparer son cookie :
         
