@@ -1,12 +1,13 @@
+
 # Découverte OWASP
 
 # **Découverte des vulnérabilités référencées par l’OWASP**
 
-Dans ce document nous découvrirons un ensemble de vulnérabilités classées par l’OWASP et leur détection dans le cadre d’un « pen-testing ».
+    Dans ce document nous découvrirons un ensemble de vulnérabilités classées par l’OWASP et leur détection dans le cadre d’un « pen-testing ».
 
- L'OWASP (Open Worldwide Application Security Project) est une association mettant en avant les différentes failles connues sur les applications (principalement web) et les moyens de s'en protéger. L'organisme effectue un classement régulier des vulnérabilités les plus exploitées sur Internet pour former les testeurs de sécurité à leur détection et les développeurs à leur compréhension et à la correction du code.
+    L'OWASP (Open Worldwide Application Security Project) est une association mettant en avant les différentes failles connues sur les applications (principalement web) et les moyens de s'en protéger. L'organisme effectue un classement régulier des vulnérabilités les plus exploitées sur Internet pour former les testeurs de sécurité à leur détection et les développeurs à leur compréhension et à la correction du code.
 
- L'OWASP propose divers projets, et nous nous intéresserons ici au sujet principal : le classement des **10 vulnérabilités les plus exploitées sur Internet**. Pour effectuer cette étude, nous nous baserons sur le site officiel de l'OWASP et sur une application répertoriant des exemples des différents types de vulnérabilités étudiées. L’application WebGoat est ainsi développée par l’OWASP pour comprendre les différents types de vulnérabilités et leurs impacts.
+    L'OWASP propose divers projets, et nous nous intéresserons ici au sujet principal : le classement des **10 vulnérabilités les plus exploitées sur Internet**. Pour effectuer cette étude, nous nous baserons sur le site officiel de l'OWASP et sur une application répertoriant des exemples des différents types de vulnérabilités étudiées. L’application WebGoat est ainsi développée par l’OWASP pour comprendre les différents types de vulnérabilités et leurs impacts.
 
 Nous travaillerons ainsi sur les **5 premières vulnérabilités** du top 10 de l'OWASP (version 2021, car ce classement est actualisé tous les 4 ans).
 
@@ -23,7 +24,11 @@ L'OWASP classe les vulnérabilités en catégories spécifiques :
 
 L'organisation à but non lucratif **MITRE** est à l'origine des classifications des différentes faiblesses, dans le but de définir les vulnérabilités connues à surveiller en urgence : les **CVE (Common Vulnerability and Exposure / Common Vulnerability Enumeration)**.
 
+<aside>
+
 En 1999, MITRE a établi une classification des menaces permettant de se protéger et de configurer les équipements IDS pour prévenir l'exploitation des menaces récentes sur les systèmes d'information.
+
+</aside>
 
 - Les CVE possèdent un identifiant unique permettant de retrouver une vulnérabilité et un contexte précis d’exploitation (version du programme touché, système d’exploitation touché, CWE liées à ce type de vulnérabilité, risques encourus)
 - Les CWE classent de manière générique les types de vulnérabilité et leurs impacts sur les systèmes touchés.
@@ -48,13 +53,15 @@ Pour les premières leçons de l’application WebGoat, vous aurez besoin d’ut
 ![images/image1.png](images/image1.png)
 
 1. (A1) Broken Access Control
+    
+    <aside>
+    
     *Hijack a session*
     
-     Le session Hijacking est le fait de voler la session d’un autre utilisateur, il repose la plupart du temps sur l’utilisation d’un moyen d’authentification autre que le nom et le mot de passe de l’utilisateur (comme un cookie d’authentification).
-
-<details>
-<summary> Hijack a session - 5 </summary>
-    -        
+    > Le session Hijacking est le fait de voler la session d’un autre utilisateur, il repose la plupart du temps sur l’utilisation d’un moyen d’authentification autre que le nom et le mot de passe de l’utilisateur (comme un cookie d’authentification).
+    > 
+    - Hijack a session - 5
+        
         Dans la partie storage vous trouverez les cookies liés à la page sur laquelle vous vous connectez. Pour la première leçon (Hijack a session) il s’agit de deviner le cookie d’un utilisateur.
         
         Pour réaliser ce challenge je note le cookie récupéré par l’utilisateur julien :
@@ -167,8 +174,10 @@ Pour les premières leçons de l’application WebGoat, vous aurez besoin d’ut
         Le script se connecte au serveur avec les identifiants entrés à l’exécution puis récupère un hijack_cookie auprès du serveur, il incrémente ensuite le permier nombre pour prédire la valeur du prochain cookie. Si le prochain cookie possède la valeur prévue il recommence l’opération jusqu’à ce que le cookie obtenu ne soit pas celui qui était prévu. A partir du moment ou ce cookie est identifié on décrémente la valeur du deuxième nombre (le timestamp) d’une unité pour trouver le cookie attendu.
         
         L’opération est répétée une trentaine de fois ce qui était suffisant lors de mes tests.
-</details>       
-
+        
+    </aside>
+    
+    <aside>
     
     *Insecure Direct Object Reference*
     
@@ -612,4 +621,4 @@ Pour les premières leçons de l’application WebGoat, vous aurez besoin d’ut
         
         En envoyant le fichier zip l’image extraite le sera à l’endroit choisi !
         
-    </aside>
+    </aside> 
